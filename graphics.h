@@ -23,6 +23,7 @@
 #define WUMPUS_GRAPHIC
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include "main.h"
 
 #define DEPTH 32
@@ -30,10 +31,16 @@
 SDL_Surface *disp, *tmp, *terrain, /* general purpose */
 			*fog, *grass, *pit, /* terrain */
 			*wumpus, *player, /* charachters */
-			*stench, *breeze, *gold; /* misc */
+			*stench, *breeze, *gold, /* misc */
+         *message; /* message surface */
+
+TTF_Font *font;
 
 int init_graphics(void );
 int load_sprites(void);
 void draw(void );
+void draw_terrain(void );
+void place_player(void );
+int notify(char * message);
 
 #endif

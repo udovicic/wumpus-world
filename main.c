@@ -25,6 +25,10 @@
 #include "game.h"
 #include "graphics.h"
 
+void go_away(void ) {
+   TTF_Quit();
+	SDL_Quit();
+}
 
 int main(int nargs, char *args[]) {
 	
@@ -94,7 +98,11 @@ int main(int nargs, char *args[]) {
 	if (verbose) for (b=0;b<world_y;b++) {for (a=0;a<world_x;a++) printf("%c",world[a][b]); printf("\n");};
 	
 	/* begin game with SDL */
-	init_graphics();
+	if (init_graphics()) {
+		go_away();
+		return 1;
+	}
+	
 	init_game();
 	
 	while( game_alive() ) {
@@ -102,7 +110,9 @@ int main(int nargs, char *args[]) {
 		game_logic();
 		draw();
 	}
+   
+   while( game_block() );
 	
-	SDL_Quit();
+	go_away();
 	return 0;
 }

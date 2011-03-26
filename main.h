@@ -30,7 +30,8 @@
 #define np 0.5
 
 char world[x_max][y_max];
-int gmap[x_max][y_max][5];
+int gmap[x_max][y_max][3];
 int world_x, world_y;
+int player_x, player_y;
 
 #endif

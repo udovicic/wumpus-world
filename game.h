@@ -26,10 +26,20 @@
 
 int continue_game;
 SDL_Event event;
-
+typedef struct {
+   int stench;
+   int breeze;
+   int glitter;
+   int grim_reaper;
+} status;
+status st;
+   
 void init_game(void );
 int game_alive(void );
 void game_input(void );
 void game_logic(void );
+int move(int dir );
+void get_status(void );
+int game_block(void );
 
 #endif

@@ -5,7 +5,7 @@ TRGT = wumpus
 
 CC = gcc
 CFLAGS = -g -pedantic -Wall -c $(SRCS) `sdl-config --cflags`
-LFLAGS = -o $(TRGT) `sdl-config --libs` -lSDL_image
+LFLAGS = -o $(TRGT) `sdl-config --libs` -lSDL_image -lSDL_ttf
 
 $(TRGT): $(OBJS)
 	$(CC) $(LFLAGS) $(OBJS)
