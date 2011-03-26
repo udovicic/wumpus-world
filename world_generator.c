@@ -18,7 +18,10 @@
  *	You should have received a copy of the GNU General Public License
  *	along with WumpusWorld.  If not, see <http://www.gnu.org/licenses/>.
  */	     
-    
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>    
 #include "world_generator.h"
 
 
@@ -89,36 +92,36 @@ void validate(int *x, int*y, int *nwumpus, int *npit) {
 	return;
 }
 
-int map_valid(int solvable, char world[][y_max], int x, int y) {
+int map_valid(int solvable, char map[x_max][y_max], int x, int y) {
 	/* If map is requested to be solvable, checks for path betwen player (x,0)
 	 * and gold (G). If there is no path, returns FALSE */
 	 
 	int i,xx,yy,a,b,valid;
 	int dir[2][4] = {{0,1,0,-1},{1,0,-1,0}};
-	char _world[x_max][y_max];
+	char _map[x_max][y_max];
 	
 	
 	if (!solvable) return 1; /* no map requests */
 		
-	for (a=0;a<x;a++) for (b=0;b<y;b++) _world[a][b]=world[a][b];
+	for (a=0;a<x;a++) for (b=0;b<y;b++) _map[a][b]=map[a][b];
 	clear_stack();
 	valid=0;
-	a=x-1;b=0;_world[a][b]='x'; push(a);push(b);
+	a=x-1;b=0;_map[a][b]='x'; push(a);push(b);
 	
-	while (world[a][b]!='G') {
+	while (map[a][b]!='G') {
 		b=pop();a=pop();
 		if (a<0) break;
 		
-		if (_world[a][b]=='G') {
+		if (_map[a][b]=='G') {
 			valid = 1;
 			break;
 		} else
-			_world[a][b]='x';
+			_map[a][b]='x';
 			
 		for (i=0;i<4;i++) {
 			xx=a+dir[0][i];
 			yy=b+dir[1][i];
-			if (xx>=0 && xx<x && yy>=0 && yy<y) if(_world[xx][yy] == '.' || _world[xx][yy] == 'G') {
+			if (xx>=0 && xx<x && yy>=0 && yy<y) if(_map[xx][yy] == '.' || _map[xx][yy] == 'G') {
 				push(xx);
 				push(yy);
 			}
@@ -129,17 +132,17 @@ int map_valid(int solvable, char world[][y_max], int x, int y) {
 	return valid;
 }
 
-void generate_map(char world[][y_max], int solvable, int x, int y, int nwumpus, int npit) {
+void generate_map(char map[][y_max], int solvable, int x, int y, int nwumpus, int npit) {
 	
 	int a,b,i;
 	
 	/* validate parameters */
 	validate(&x, &y, &nwumpus, &npit);
 	
-	/* try to generate world */
+	/* try to generate map */
 	do {
 	/* clear array */
-		for (a=0;a<x;a++) for (b=0;b<y;b++) world[a][b]='.';
+		for (a=0;a<x;a++) for (b=0;b<y;b++) map[a][b]='.';
 		
 	/* generate pits .. */
 		i = npit;
@@ -147,8 +150,8 @@ void generate_map(char world[][y_max], int solvable, int x, int y, int nwumpus, 
 			a = rand() % x;
 			b = rand() % y;
 			
-			if (!(world[a][b]!='.') && (a!=x && b!=0)) {
-				world[a][b]='p';
+			if (!(map[a][b]!='.') && (a!=x && b!=0)) {
+				map[a][b]='p';
 				i--;			
 			}
 		}
@@ -159,8 +162,8 @@ void generate_map(char world[][y_max], int solvable, int x, int y, int nwumpus, 
 			a = rand() % x;
 			b = rand() % y;
 			
-			if (world[a][b]=='.' && (a!=x && b!=0)) {
-				world[a][b]='w';
+			if (map[a][b]=='.' && (a!=x && b!=0)) {
+				map[a][b]='w';
 				i--;
 			}
 		}
@@ -170,12 +173,12 @@ void generate_map(char world[][y_max], int solvable, int x, int y, int nwumpus, 
 		while (i) {
 			a = rand() % x;
 			b = rand() % y;
-			if (world[a][b]=='.' && (a!=x && b!=0)) {
-				world[a][b]='G';
+			if (map[a][b]=='.' && (a!=x && b!=0)) {
+				map[a][b]='G';
 				i--;
 			}
 		}
 	
-	} while (!map_valid(solvable, world, x, y));
+	} while (!map_valid(solvable, map, x, y));
 
 }

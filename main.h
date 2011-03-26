@@ -1,5 +1,5 @@
 /*
- *	world_generator.h
+ *	main.h
  * 
  *	Copyright 2011 Stjepan Udovičić <udovicic.stjepan@gmail.com>
  *	      
@@ -17,25 +17,20 @@
  *
  *	You should have received a copy of the GNU General Public License
  *	along with WumpusWorld.  If not, see <http://www.gnu.org/licenses/>.
- */	  
+ */	 
 
-#ifndef WUMPUS_WORLD_GENERATOR
-#define WUMPUS_WORLD_GENERATOR
+#ifndef WUMPUS_MAIN
+#define WUMPUS_MAIN
 
-#include "main.h"
+#define x_min 3 /* min and max x map size */
+#define x_max 10
+#define y_min 3 /* min and max y map size */
+#define y_max 10
+#define nw 0.1 /* max wumpus and pit ratio */
+#define np 0.5
 
-/* stack used for map validation */
-int  *tos, *p1, stack[x_max*y_max*2];
-void push(int i);
-int pop(void);
-void clear_stack(void);
-
-/* used for map generation and validation */
-void randomize(int *x, int *y, int *solvable, int *npit, int *nwumpus);
-void validate(int *x, int*y, int *nwumpus, int *npit);
-int map_valid(int solvable, char world[x_max][y_max], int x, int y);
-
-/* main function for map generation */
-void generate_map(char world[x_max][y_max], int solvable, int x, int y, int nwumpus, int npit);
+char world[x_max][y_max];
+int gmap[x_max][y_max][5];
+int world_x=4, world_y=4;
 
 #endif

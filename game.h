@@ -1,5 +1,5 @@
 /*
- *	world_generator.h
+ *	game.h
  * 
  *	Copyright 2011 Stjepan Udovičić <udovicic.stjepan@gmail.com>
  *	      
@@ -17,25 +17,19 @@
  *
  *	You should have received a copy of the GNU General Public License
  *	along with WumpusWorld.  If not, see <http://www.gnu.org/licenses/>.
- */	  
+ */	 
+ 
+#ifndef WUMPUS_GAME
+#define WUMPUS_GAME
 
-#ifndef WUMPUS_WORLD_GENERATOR
-#define WUMPUS_WORLD_GENERATOR
+#include <SDL/SDL.h>
 
-#include "main.h"
+int continue_game;
+SDL_Event event;
 
-/* stack used for map validation */
-int  *tos, *p1, stack[x_max*y_max*2];
-void push(int i);
-int pop(void);
-void clear_stack(void);
-
-/* used for map generation and validation */
-void randomize(int *x, int *y, int *solvable, int *npit, int *nwumpus);
-void validate(int *x, int*y, int *nwumpus, int *npit);
-int map_valid(int solvable, char world[x_max][y_max], int x, int y);
-
-/* main function for map generation */
-void generate_map(char world[x_max][y_max], int solvable, int x, int y, int nwumpus, int npit);
+void init_game(void );
+int game_alive(void );
+void game_input(void );
+void game_logic(void );
 
 #endif
