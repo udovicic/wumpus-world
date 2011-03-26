@@ -31,6 +31,6 @@
 
 char world[x_max][y_max];
 int gmap[x_max][y_max][5];
-int world_x=4, world_y=4;
+int world_x, world_y;
 
 #endif

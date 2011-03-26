@@ -132,7 +132,7 @@ int map_valid(int solvable, char map[x_max][y_max], int x, int y) {
 	return valid;
 }
 
-void generate_map(char map[][y_max], int solvable, int x, int y, int nwumpus, int npit) {
+void generate_map(char map[x_max][y_max], int solvable, int x, int y, int nwumpus, int npit) {
 	
 	int a,b,i;
 	
@@ -150,7 +150,7 @@ void generate_map(char map[][y_max], int solvable, int x, int y, int nwumpus, in
 			a = rand() % x;
 			b = rand() % y;
 			
-			if (!(map[a][b]!='.') && (a!=x && b!=0)) {
+			if (a!=0 && b!=y) if (!(map[a][b]!='.') && (a!=x && b!=0)) {
 				map[a][b]='p';
 				i--;			
 			}
@@ -162,7 +162,7 @@ void generate_map(char map[][y_max], int solvable, int x, int y, int nwumpus, in
 			a = rand() % x;
 			b = rand() % y;
 			
-			if (map[a][b]=='.' && (a!=x && b!=0)) {
+			if (a!=0 && b!=y) if (map[a][b]=='.' && (a!=x && b!=0)) {
 				map[a][b]='w';
 				i--;
 			}
@@ -173,7 +173,7 @@ void generate_map(char map[][y_max], int solvable, int x, int y, int nwumpus, in
 		while (i) {
 			a = rand() % x;
 			b = rand() % y;
-			if (map[a][b]=='.' && (a!=x && b!=0)) {
+			if (a!=0 && b!=y) if (map[a][b]=='.' && (a!=x && b!=0)) {
 				map[a][b]='G';
 				i--;
 			}

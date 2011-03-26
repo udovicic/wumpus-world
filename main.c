@@ -41,6 +41,8 @@ int main(int nargs, char *args[]) {
 	int a,b;
 	char *program = args[0];
 	
+	world_x=4;
+	world_y=4;
 	/* read program parameters from command line */
 	while ((nargs>1) && (args[1][0]=='-')) {
 		switch(args[1][1]) {
@@ -81,12 +83,15 @@ int main(int nargs, char *args[]) {
 	/* output map to file */
 	pFile = fopen(oFile,"w");	
 	if (pFile!=NULL) {
-		for (a=0;a<world_x;a++) {for (b=0;b<world_y;b++) fprintf(pFile,"%c",world[a][b]); fprintf(pFile,"\n");};
+		for (b=0;b<world_y;b++) {for (a=0;a<world_x;a++) fprintf(pFile,"%c",world[a][b]); fprintf(pFile,"\n");};
 		fclose(pFile);
 	} else {
 		perror("Can't open file");
 		verbose=1;
 	}
+	
+	/* output map to screen if verbose */
+	if (verbose) for (b=0;b<world_y;b++) {for (a=0;a<world_x;a++) printf("%c",world[a][b]); printf("\n");};
 	
 	/* begin game with SDL */
 	init_graphics();

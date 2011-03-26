@@ -63,7 +63,7 @@ int init_graphics() {
 		}
 	}
    i=0;j=0;
-	while (i!=world_x || j!=world_y) {
+	for (i=0;i<world_x;i++) for (j=0;j<world_y;j++) {
 		switch(world[i][j]) {
 			case 'G': tmp=gold;
 				rect.w=30;rect.h=34;
@@ -81,10 +81,8 @@ int init_graphics() {
 				rect.x=95*i;
 				rect.y=68*j+18;
 				break;
-			case '\n': i=-1; j++; break;
 		}
 		SDL_BlitSurface(tmp,NULL,terrain,&rect);
-		i++;
 	}
    return 0;
 }
@@ -174,6 +172,6 @@ void draw(void ) {
     *   draw_terrain();
     *   place_player();
     */
-    
+   SDL_BlitSurface(terrain,NULL,disp,NULL);
    SDL_Flip(disp);
 }
