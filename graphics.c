@@ -82,7 +82,7 @@ int init_graphics() {
 	 case 'w': tmp=wumpus;
 	    rect.w=43;
 	    rect.h=50;
-	    rect.x=95*i;
+	    rect.x=95*i+40;
 	    rect.y=68*j+18;
 	    break;
       }
@@ -186,10 +186,11 @@ void draw(void ) {
 }
 
 int notify(char * msg) {
-   SDL_Color text_color = {255,255,255};
+   SDL_Color text_color = {255,87,0};
    SDL_Rect rect;
    message = TTF_RenderText_Solid(font, msg, text_color);
 
+   draw(); 
    if (message == NULL) {
       perror("TTF_RenderText_Solid() Failed");
       return 1;

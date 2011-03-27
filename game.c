@@ -26,38 +26,28 @@
  #include "graphics.h"
 
 void game_input(void ) {
-   while ( SDL_PollEvent(&event) ) {
-      switch (event.type) {
-         case SDL_QUIT:
-            continue_game = 0;
-            break;
-         case SDL_KEYDOWN:
-            switch (event.key.keysym.sym) {
-               case SDLK_UP: move(0); break;
-               case SDLK_RIGHT: move(1); break;
-               case SDLK_DOWN: move(2); break;
-               case SDLK_LEFT: move(3); break;
-            }
+   switch (event.type) {
+      case SDL_QUIT:
+         continue_game = 0;
+         break;
+      case SDL_KEYDOWN:
+         switch (event.key.keysym.sym) {
+            case SDLK_UP: move(0); break;
+            case SDLK_RIGHT: move(1); break;
+            case SDLK_DOWN: move(2); break;
+            case SDLK_LEFT: move(3); break;
+            case SDLK_ESCAPE: st.grim_reaper = 1; continue_game = 0; break;
+            default: /* sit and bequite */ break;
+         }
       }
-   }
 }
 
 void game_logic(void ) {
    get_status();
    if (st.stench) gmap[player_x][player_y][1]=1;
    if (st.breeze) gmap[player_x][player_y][2]=1;
-   if (st.glitter) {
-      if (notify("You Win!")) {
-         printf("You Win!\n");
-      }
-      continue_game=0;
-   }
-   if (st.grim_reaper) {
-      if (notify("You die in agony!")) {
-         printf("You die in agony!\n");
-      }
-      continue_game=0;
-   }         
+   if (st.glitter) continue_game=0;
+   if (st.grim_reaper) continue_game=0;         
 }
 
 void init_game(void ) {
@@ -112,9 +102,10 @@ void get_status(void ) {
       }
    
 }
-int game_block(void ) {
+int game_block(void ) { 
    SDL_Event block;
    SDL_PollEvent(&block);
-   if (block.type == SDL_QUIT) return 0;
+   if (block.type == SDL_QUIT ) return 0;
+   if (block.key.keysym.sym == SDLK_ESCAPE ) return 0;
    return 1;   
 }

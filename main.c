@@ -105,12 +105,29 @@ int main(int nargs, char *args[]) {
 	
 	init_game();
 	
+   /* game loop */
 	while( game_alive() ) {
+      SDL_WaitEvent(&event);
 		game_input();
 		game_logic();
 		draw();
 	}
    
+   /* information about ended game */
+   if (st.glitter) {
+      if (notify("You Win!")) {
+         printf("You Win!\n");
+      }
+      continue_game=0;
+   }
+   if (st.grim_reaper) {
+      if (notify("You die in agony!")) {
+         printf("You die in agony!\n");
+      }
+      continue_game=0;
+   }         
+   
+   /* wait for user to confirm quit */
    while( game_block() );
 	
 	go_away();
