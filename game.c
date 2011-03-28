@@ -63,7 +63,6 @@ void game_logic(void ) {
             if (aiw[xx][yy]==0) {
                act(xx);act(yy);
                aiw[xx][yy]=1;
-               printf("push %d %d\n",xx,yy);
             }
          }
       }
@@ -76,9 +75,6 @@ void game_logic(void ) {
       }
       if (player_x<0 || player_y<0) continue_game=0;
       gmap[player_x][player_y][0]=1;
-      
-      
-      printf("Moving to: %d, %d\n",player_x,player_y);
    }
 }
 
