@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -23,12 +23,6 @@
 #define WUMPUS_WORLD_GENERATOR
 
 #include "main.h"
-
-/* stack used for map validation */
-int  *tos, *p1, stack[x_max*y_max*2];
-void push(int i);
-int pop(void);
-void clear_stack(void);
 
 /* used for map generation and validation */
 void randomize(int *x, int *y, int *solvable, int *npit, int *nwumpus);

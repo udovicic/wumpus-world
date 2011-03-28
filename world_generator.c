@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -24,24 +24,6 @@
 #include <time.h>    
 #include "world_generator.h"
 
-
-void push(int i) {
-	p1++;
-	*p1 = i;
-}
-
-int pop(void) {
-	if(p1 == tos)
-		return -1;
-	p1--;
-	return *(p1+1);
-}
-
-void clear_stack(void) {
-	tos=stack;
-	p1=stack;
-	return;
-}
 
 void randomize(int *x, int *y, int *solvable, int *npit, int *nwumpus) {
 	/* Generates map parameters within specified range

@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -29,9 +29,19 @@
 #define nw 0.1 /* max wumpus and pit ratio */
 #define np 0.5
 
+/* stack */
+int  *tos, *p1, stack[x_max*y_max*2];
+int  *tosb, *pb1, stackb[x_max*y_max*2];
+void push(int i);
+void pushb(int i);
+int pop(void );
+int popb(void );
+void clear_stack(void);
+
 char world[x_max][y_max];
 int gmap[x_max][y_max][3];
 int world_x, world_y;
 int player_x, player_y;
+int fogofwar, ai;
 
 #endif

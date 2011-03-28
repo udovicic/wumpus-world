@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -45,24 +45,38 @@ int main(int nargs, char *args[]) {
 	int a,b;
 	char *program = args[0];
 	
+	/* licence info */
+	printf("WumpusWorld is free software: you can redistribute it and/or modify"
+			"it under the terms of the GNU General Public License as published by"
+			"the Free Software Foundation, either version 3 of the License, or"
+			"(at your option) any later version.\n"
+			"Source code available at http://code.udovicic.org/wumpus-world\n\n");
+			
 	world_x=4;
 	world_y=4;
+	fogofwar=1;
+	ai=0;
+	
 	/* read program parameters from command line */
 	while ((nargs>1) && (args[1][0]=='-')) {
 		switch(args[1][1]) {
 			case 'r': randomize( &world_x, &world_y, &solvable, &npit, &nwumpus); break;
+			case 'a': ai=1; break;
 			case 'v': verbose^=1; break;
 			case 'w': nwumpus=atoi(&args[1][2]); break;
 			case 'p': npit=atoi(&args[1][2]); break;
 			case 'x': world_x=atoi(&args[1][2]); break;
 			case 'y': world_y=atoi(&args[1][2]); break;
 			case 's': solvable=1; break;
+			case 'f': fogofwar=0; break;
 			case 'o': oFile=&args[1][2]; break;
 			default:
 				printf("Usage\n  %s <options>\n"
 						"  -r\t\t Randomise parameters\n"
 						"  -v\t\t Verbose mode\n"
 						"  -s\t\t Request solvable map\n"
+						"  -f\t\t No fog on map\n"
+						"  -a\t\t Use AI player\n"
 						"  -w<n>\t Number of monsters in world\n"
 						"  -p<n>\t Number of pits\n"
 						"  -x<n>\t Length of world\n"
@@ -103,11 +117,11 @@ int main(int nargs, char *args[]) {
 		return 1;
 	}
 	
-	init_game();
+	game_init();
 	
    /* game loop */
 	while( game_alive() ) {
-      SDL_WaitEvent(&event);
+      if (!ai) SDL_WaitEvent(&event);
 		game_input();
 		game_logic();
 		draw();
@@ -132,4 +146,33 @@ int main(int nargs, char *args[]) {
 	
 	go_away();
 	return 0;
+}
+
+
+void push(int i) {
+	p1++;
+	*p1 = i;
+}
+void pushb(int i) {
+	pb1++;
+	*pb1 = i;
+}
+int pop(void) {
+	if(p1 == tos)
+		return -1;
+	p1--;
+	return *(p1+1);
+}
+int popb(void) {
+	if(pb1 == tosb)
+		return -1;
+	pb1--;
+	return *(pb1+1);
+}
+void clear_stack(void) {
+	tos=stack;
+	p1=stack;
+	tosb=stackb;
+	pb1=stackb;
+	return;
 }

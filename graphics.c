@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -153,7 +153,7 @@ void draw_terrain(void ) {
    int i,j;
    for (i=0;i<world_x;i++) {
       for (j=0;j<world_y;j++) {
-         if (gmap[i][j][0]==0 ) { /* fog */
+         if (gmap[i][j][0]==0 && fogofwar) { /* fog */
             rect.w=95;rect.h=68;rect.x=95*i;rect.y=68*j;
             SDL_BlitSurface(fog,NULL,disp,&rect);
          } else { /* place other stuff */

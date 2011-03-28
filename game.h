@@ -10,7 +10,7 @@
  *	the Free Software Foundation, either version 3 of the License, or
  *	(at your option) any later version.
  *
- *	Foobar is distributed in the hope that it will be useful,
+ *	WumpusWorld is distributed in the hope that it will be useful,
  *	but WITHOUT ANY WARRANTY; without even the implied warranty of
  *	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *	GNU General Public License for more details.
@@ -23,8 +23,10 @@
 #define WUMPUS_GAME
 
 #include <SDL/SDL.h>
+#include "main.h"
 
 int continue_game;
+int aiw[x_max][y_max];
 SDL_Event event;
 typedef struct {
    int stench;
@@ -34,7 +36,7 @@ typedef struct {
 } status;
 status st;
    
-void init_game(void );
+void game_init(void );
 int game_alive(void );
 void game_input(void );
 void game_logic(void );
